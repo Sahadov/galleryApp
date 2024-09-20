@@ -11,14 +11,10 @@ class ViewController: UIViewController {
 
     let tableView = UITableView()
     
-    
     var artistsList = [Artist]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         setupView()
         
         let anonymousFunction = { (fetchedArtistsList: [Artist]) in
@@ -36,6 +32,10 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        tableView.backgroundColor = .systemGray
+        tableView.dataSource = self
+        tableView.register(ArtistCell.self, forCellReuseIdentifier: "cell")
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -52,8 +52,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = artistsList[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ArtistCell
+        cell.artistImage.image = UIImage(named: artistsList[indexPath.row].image)
+        cell.artistName.text = artistsList[indexPath.row].name
+        cell.artistInfo.text = artistsList[indexPath.row].bio.shorted(to: 50)
         return cell
     }
     
