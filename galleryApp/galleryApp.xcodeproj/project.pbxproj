@@ -12,6 +12,7 @@
 		D179A4852C9CDCE500A91906 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179A4842C9CDCE500A91906 /* ViewController.swift */; };
 		D179A48A2C9CDCE900A91906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D179A4892C9CDCE900A91906 /* Assets.xcassets */; };
 		D179A48D2C9CDCE900A91906 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D179A48B2C9CDCE900A91906 /* LaunchScreen.storyboard */; };
+		D179A4952C9CE96D00A91906 /* GalleryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179A4942C9CE96D00A91906 /* GalleryAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D179A4892C9CDCE900A91906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D179A48C2C9CDCE900A91906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D179A48E2C9CDCE900A91906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D179A4942C9CE96D00A91906 /* GalleryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				D179A4802C9CDCE500A91906 /* AppDelegate.swift */,
 				D179A4822C9CDCE500A91906 /* SceneDelegate.swift */,
 				D179A4842C9CDCE500A91906 /* ViewController.swift */,
+				D179A4942C9CE96D00A91906 /* GalleryAPI.swift */,
 				D179A4892C9CDCE900A91906 /* Assets.xcassets */,
 				D179A48B2C9CDCE900A91906 /* LaunchScreen.storyboard */,
 				D179A48E2C9CDCE900A91906 /* Info.plist */,
@@ -135,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D179A4852C9CDCE500A91906 /* ViewController.swift in Sources */,
+				D179A4952C9CE96D00A91906 /* GalleryAPI.swift in Sources */,
 				D179A4812C9CDCE500A91906 /* AppDelegate.swift in Sources */,
 				D179A4832C9CDCE500A91906 /* SceneDelegate.swift in Sources */,
 			);
