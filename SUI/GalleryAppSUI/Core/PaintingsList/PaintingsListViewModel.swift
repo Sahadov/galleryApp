@@ -18,13 +18,13 @@ class PaintingsListViewModel: ObservableObject {
     }
     
     func fetchPaintings() {
-        service.fetchPaintingsWithResult { result in
+        service.fetchPaintingsWithResult { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let artists):
-                    self.artists = artists
+                    self?.artists = artists
                 case .failure(let error):
-                    self.errorMessage = error.localizedDescription
+                    self?.errorMessage = error.localizedDescription
                 }
             }
         }
