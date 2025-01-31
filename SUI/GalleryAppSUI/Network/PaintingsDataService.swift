@@ -9,23 +9,39 @@ import Foundation
 
 class PaintingsDataService {
     
-    func fetchPaintings(completion: @escaping([Artist]?, Error?) -> Void )  {
-       
-        let urlString = "https://cdn.accelonline.io/OUR6G_IgJkCvBg5qurB2Ag/files/YPHn3cnKEk2NutI6fHK04Q.json"
+    private let urlString = "https://cdn.accelonline.io/OUR6G_IgJkCvBg5qurB2Ag/files/YPHn3cnKEk2NutI6fHK04Q.json"
+    
+    func fetchPaintingsWithResult(completion: @escaping(Result<[Artist], Error>) -> Void )  {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
+            if let error {
+                completion(.failure(error))
+                return
+            }
                 
-                if let error {
-                    completion(nil, error)
-                }
+                guard let data else { return }
+                guard let apiResponse = try? JSONDecoder().decode(APIResponse.self, from: data) else { return }
+                
+            completion(.success(apiResponse.artists))
+        }
+        .resume()
+    }
+    
+    
+    func fetchPaintings(completion: @escaping([Artist]?, Error?) -> Void )  {
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                completion(nil, error)
+                return
+            }
                 
                 guard let data else { return }
                 guard let apiResponse = try? JSONDecoder().decode(APIResponse.self, from: data) else { return }
                 
                 completion(apiResponse.artists, nil)
-            }
         }
         .resume()
     }

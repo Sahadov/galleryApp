@@ -12,12 +12,17 @@ struct PaintingsListView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            List {
+                ForEach(viewModel.artists, id: \.self) { artist in
+                    Text(artist.name)
+                }
+            }
         }
-        .padding()
+        .overlay {
+            if let error = viewModel.errorMessage {
+                Text(error)
+            }
+        }
     }
 }
 

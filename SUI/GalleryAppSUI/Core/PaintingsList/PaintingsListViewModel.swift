@@ -8,7 +8,9 @@
 import Foundation
 
 class PaintingsListViewModel: ObservableObject {
-    @Published var paintings: [Artist]?
+    @Published var artists = [Artist]()
+    @Published var errorMessage: String?
+    
     private let service = PaintingsDataService()
     
     init() {
@@ -16,9 +18,17 @@ class PaintingsListViewModel: ObservableObject {
     }
     
     func fetchPaintings() {
-        service.fetchPaintings { artists, error in
-            print(artists)
+        service.fetchPaintingsWithResult { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let artists):
+                    self.artists = artists
+                case .failure(let error):
+                    self.errorMessage = error.localizedDescription
+                }
+            }
         }
     }
 }
+
 
