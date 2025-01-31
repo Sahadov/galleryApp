@@ -10,15 +10,17 @@ import SwiftUI
 struct PaintingsListView: View {
     @StateObject var viewModel = PaintingsListViewModel()
     
-    @State var search = ""
-    
     var body: some View {
         VStack {
-            SearchView(search: $search)
+            ToolBarView(control: $viewModel.isShowingAddArtistView)
+            SearchView(search: $viewModel.searchValue)
             
             List {
                 ForEach(viewModel.artists, id: \.self) { artist in
                     ArtistListItem(artist: artist)
+                        .onTapGesture {
+                            viewModel.isShowingDetailView.toggle()
+                        }
                 }
             }
             .listStyle(.plain)
@@ -27,6 +29,12 @@ struct PaintingsListView: View {
             if let error = viewModel.errorMessage {
                 Text(error)
             }
+        }
+        .fullScreenCover(isPresented: $viewModel.isShowingDetailView) {
+            ArtistDetailedView()
+        }
+        .fullScreenCover(isPresented: $viewModel.isShowingAddArtistView) {
+            AddArtistView()
         }
     }
 }

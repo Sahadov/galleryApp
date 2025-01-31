@@ -10,7 +10,9 @@ import Foundation
 class PaintingsListViewModel: ObservableObject {
     @Published var artists = [Artist]()
     @Published var errorMessage: String?
+    @Published var searchValue = ""
     @Published var isShowingDetailView = false
+    @Published var isShowingAddArtistView = false
     
     private let service = PaintingsDataService()
     
