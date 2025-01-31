@@ -12,7 +12,7 @@ struct ArtistListItem: View {
     
     var body: some View {
         HStack {
-            Image(artist.works[0].image)
+            Image(artist.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 100)

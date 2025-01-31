@@ -19,6 +19,7 @@ struct PaintingsListView: View {
                 ForEach(viewModel.artists, id: \.self) { artist in
                     ArtistListItem(artist: artist)
                         .onTapGesture {
+                            viewModel.selectedArtist = artist
                             viewModel.isShowingDetailView.toggle()
                         }
                 }
@@ -31,7 +32,7 @@ struct PaintingsListView: View {
             }
         }
         .fullScreenCover(isPresented: $viewModel.isShowingDetailView) {
-            ArtistDetailedView()
+            ArtistDetailedView(artist: viewModel.selectedArtist ?? MockData().example, control: $viewModel.isShowingDetailView)
         }
         .fullScreenCover(isPresented: $viewModel.isShowingAddArtistView) {
             AddArtistView()

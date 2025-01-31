@@ -9,6 +9,7 @@ import Foundation
 
 struct Artist: Codable, Hashable {
     let name: String
+    let image: String
     let bio: String
     let works: [Work]
 }

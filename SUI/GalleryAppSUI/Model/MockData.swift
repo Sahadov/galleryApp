@@ -10,6 +10,7 @@ import Foundation
 struct MockData {
     var example = Artist(
         name: "Pablo Picasso",
+        image: "0",
         bio: "Pablo Ruiz y Picasso (25 October 1881 – 8 April 1973), also known as Pablo Picasso, was a Spanish painter, sculptor, printmaker, ceramicist, stage designer, poet and playwright who spent most of his adult life in France.",
         works: [
             Work(title: "Guernica",
