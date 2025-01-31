@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ArtistDetailedView: View {
+    @StateObject var viewModel = ArtistDetailedViewModel()
     let artist: Artist
     @Binding var control: Bool
     
@@ -53,10 +54,15 @@ struct ArtistDetailedView: View {
                     .padding(.horizontal)
                 ForEach(artist.works, id: \.self) { work in
                     VStack(alignment: .center){
-                        Image(work.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: UIScreen.main.bounds.size.width, height: 200)
+                        Button {
+                            viewModel.selectedPicture = work
+                            viewModel.isShowDetailedPictureView.toggle()
+                        } label: {
+                            Image(work.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: UIScreen.main.bounds.size.width, height: 200)
+                        }
                         Text("\(work.title) by \(artist.name)")
                             .padding(.horizontal)
                             .padding(.bottom)
@@ -68,6 +74,9 @@ struct ArtistDetailedView: View {
         }
         .padding(.bottom)
         .ignoresSafeArea()
+        .fullScreenCover(isPresented: $viewModel.isShowDetailedPictureView) {
+            PictureDetailedView(control: $viewModel.isShowDetailedPictureView, picture: viewModel.selectedPicture ?? MockData().example.works[0])
+        }
     }
 }
 
