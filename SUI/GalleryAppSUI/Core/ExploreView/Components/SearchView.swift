@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @StateObject var viewModel: ExploreViewModel
     @Binding var search: String
     
     var body: some View {
@@ -15,6 +16,22 @@ struct SearchView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(Color(.systemGray))
                 TextField("Search", text: $search)
+                .onSubmit {
+                    viewModel.updateListingForArtist()
+                }
+            
+                // Reset search button
+                if !viewModel.searchValue.isEmpty {
+                    Button {
+                        viewModel.searchValue = ""
+                        viewModel.updateListingForArtist()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(Color(.systemGray))
+                            .padding(.horizontal, 5)
+                    }
+                }
+            
                 }
                     .padding(8)
                     .overlay {

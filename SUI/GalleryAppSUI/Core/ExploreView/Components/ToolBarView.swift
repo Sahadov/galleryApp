@@ -23,6 +23,7 @@ struct ToolBarView: View {
                 Image(systemName: "plus")
                     .font(.title2)
                     .fontWeight(.semibold)
+                    .foregroundStyle(.black)
             }
         }
         .padding(.horizontal)

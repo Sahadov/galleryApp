@@ -47,7 +47,7 @@ struct PictureDetailedView: View {
             HStack(alignment: .center) {
                 Spacer()
                 Button {
-                    
+                    viewModel.isShowFullPictureView.toggle()
                 } label: {
                     Text("Развернуть")
                         .frame(width: 330, height: 49)
@@ -62,6 +62,10 @@ struct PictureDetailedView: View {
             
         }
         .ignoresSafeArea()
+        .fullScreenCover(isPresented: $viewModel.isShowFullPictureView) {
+            FullPictureView(picture: picture, control: $viewModel.isShowFullPictureView)
+    
+        }
     }
 }
 

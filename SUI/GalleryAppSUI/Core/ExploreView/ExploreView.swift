@@ -1,19 +1,19 @@
 //
-//  ContentView.swift
+//  ExploreView.swift
 //  GalleryAppSUI
 //
-//  Created by Dmitry Volkov on 28/01/2025.
+//  Created by Dmitry Volkov on 31/01/2025.
 //
 
 import SwiftUI
 
-struct PaintingsListView: View {
-    @StateObject var viewModel = PaintingsListViewModel()
+struct ExploreView: View {
+    @StateObject var viewModel = ExploreViewModel()
     
     var body: some View {
         VStack {
             ToolBarView(control: $viewModel.isShowingAddArtistView)
-            SearchView(search: $viewModel.searchValue)
+            SearchView(viewModel: viewModel, search: $viewModel.searchValue)
             
             List {
                 ForEach(viewModel.artists, id: \.self) { artist in
@@ -30,6 +30,19 @@ struct PaintingsListView: View {
             if let error = viewModel.errorMessage {
                 Text(error)
             }
+            if viewModel.artists.isEmpty {
+                VStack {
+                    Image(systemName: "figure.climbing")
+                        .font(.largeTitle)
+                        .foregroundStyle(.gray)
+                        .padding()
+                    Text("Oooppsss... No matches.")
+                        .foregroundStyle(.gray)
+                        .font(.body)
+                }
+                
+            }
+            
         }
         .fullScreenCover(isPresented: $viewModel.isShowingDetailView) {
             ArtistDetailedView(artist: viewModel.selectedArtist ?? MockData().example, control: $viewModel.isShowingDetailView)
@@ -41,5 +54,5 @@ struct PaintingsListView: View {
 }
 
 #Preview {
-    PaintingsListView()
+    ExploreView()
 }

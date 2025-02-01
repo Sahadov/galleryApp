@@ -8,6 +8,6 @@
 import Foundation
 
 class PictureDetailedViewModel: ObservableObject {
-    @Published var isShowDetailedPictureView = false
+    @Published var isShowFullPictureView = false
     @Published var selectedPicture: Work?
 }
