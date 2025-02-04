@@ -16,7 +16,7 @@ struct ExploreView: View {
             SearchView(viewModel: viewModel, search: $viewModel.searchValue)
             
             List {
-                ForEach(viewModel.artists, id: \.self) { artist in
+                ForEach(viewModel.allArtists, id: \.self) { artist in
                     ArtistListItem(artist: artist)
                         .onTapGesture {
                             viewModel.selectedArtist = artist
@@ -30,14 +30,14 @@ struct ExploreView: View {
             if let error = viewModel.errorMessage {
                 Text(error)
             }
-            if viewModel.artists.isEmpty {
+            if viewModel.allArtists.isEmpty {
                 VStack {
                     Image(systemName: "figure.climbing")
                         .font(.largeTitle)
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.blue)
                         .padding()
                     Text("Oooppsss... No matches.")
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.blue)
                         .font(.body)
                 }
                 
@@ -45,12 +45,20 @@ struct ExploreView: View {
             
         }
         .fullScreenCover(isPresented: $viewModel.isShowingDetailView) {
-            ArtistDetailedView(artist: viewModel.selectedArtist ?? MockData().example, control: $viewModel.isShowingDetailView)
+            withAnimation(.snappy) {
+                ArtistDetailedView(artist: viewModel.selectedArtist ?? MockData().example, control: $viewModel.isShowingDetailView)
+            }
         }
         .fullScreenCover(isPresented: $viewModel.isShowingAddArtistView) {
-            AddArtistView()
+            withAnimation(.snappy) {
+                AddArtistView(isShowingAddArtistView: $viewModel.isShowingAddArtistView)
+                    .onDisappear {
+                                    viewModel.fetchPaintings()
+                                }
+            }
         }
     }
+        
 }
 
 #Preview {

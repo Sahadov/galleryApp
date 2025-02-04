@@ -8,16 +8,16 @@
 import Foundation
 
 struct Artist: Codable, Hashable {
-    let name: String
-    let image: String
-    let bio: String
-    let works: [Work]
+    var name: String
+    var image: String
+    var bio: String
+    var works: [Work]
 }
 
 struct Work: Codable, Hashable {
-    let title: String
-    let image: String
-    let info: String
+    var title: String
+    var image: String
+    var info: String
 }
 
 struct APIResponse: Codable, Hashable {

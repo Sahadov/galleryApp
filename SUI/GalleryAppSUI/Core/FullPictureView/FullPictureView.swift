@@ -13,9 +13,15 @@ struct FullPictureView: View {
     
     var body: some View {
         Spacer()
-        Image(picture.image)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+        if let image = ImageStorageManager.shared.loadImageFromFile(fileName: picture.image) {
+                Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } else {
+            Image(picture.image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
         Spacer()
         HStack() {
             Spacer()

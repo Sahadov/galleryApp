@@ -9,16 +9,19 @@ import Foundation
 
 class ExploreViewModel: ObservableObject {
     @Published var artists = [Artist]()
+    @Published var allArtists = [Artist]()
     @Published var errorMessage: String?
     @Published var searchValue = ""
     @Published var selectedArtist: Artist?
     @Published var isShowingDetailView = false
     @Published var isShowingAddArtistView = false
     private var artistsCopy = [Artist]()
+    private var addedArtists = [Artist]()
     
     private let service = PaintingsDataService()
     
     init() {
+        //StorageManager.shared.deleteArtist(withName: "Repin")
         fetchPaintings()
     }
     
@@ -28,7 +31,9 @@ class ExploreViewModel: ObservableObject {
                 switch result {
                 case .success(let artists):
                     self?.artists = artists
-                    self?.artistsCopy = artists
+                    self?.addedArtists = StorageManager.shared.getArtists()
+                    self?.allArtists = artists + (self?.addedArtists ?? [])
+                    self?.artistsCopy = self?.allArtists ?? []
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }
@@ -38,10 +43,10 @@ class ExploreViewModel: ObservableObject {
     }
     
     func updateListingForArtist() {
-        let filteredArtists = artists.filter({
+        let filteredArtists = allArtists.filter({
             $0.name.lowercased().contains(searchValue.lowercased())
         })
-        self.artists = filteredArtists.isEmpty && searchValue.isEmpty ? artistsCopy : filteredArtists
+        self.allArtists = filteredArtists.isEmpty && searchValue.isEmpty ? artistsCopy : filteredArtists
     }
     
 }

@@ -15,10 +15,17 @@ struct PictureDetailedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             ZStack(alignment: .topLeading) {
-                Image(picture.image)
-                    .resizable()
-                    .frame(height: 350)
-                    .scaledToFill()
+                if let image = ImageStorageManager.shared.loadImageFromFile(fileName: picture.image) {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.size.width, height: 350)
+                            .scaledToFill()
+                } else {
+                    Image(picture.image)
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.size.width, height: 350)
+                        .scaledToFill()
+                }
                 VStack(alignment: .leading) {
                     Button {
                         control.toggle()

@@ -16,10 +16,18 @@ struct ArtistDetailedView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
                 ZStack(alignment: .bottomLeading) {
-                    Image(artist.image)
-                        .resizable()
-                        .frame(height: 350)
-                        .scaledToFill()
+                    if let image = ImageStorageManager.shared.loadImageFromFile(fileName: artist.image) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.size.width, height: 350)
+                                .scaledToFill()
+                    } else {
+                        Image(artist.image)
+                            .resizable()
+                            .frame(width: UIScreen.main.bounds.size.width, height: 350)
+                            .scaledToFill()
+                    }
+                
                     VStack(alignment: .leading) {
                         Button {
                             control.toggle()
@@ -58,10 +66,17 @@ struct ArtistDetailedView: View {
                             viewModel.selectedPicture = work
                             viewModel.isShowDetailedPictureView.toggle()
                         } label: {
-                            Image(work.image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: UIScreen.main.bounds.size.width, height: 200)
+                            if let image = ImageStorageManager.shared.loadImageFromFile(fileName: work.image) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: UIScreen.main.bounds.size.width, height: 200)
+                            } else {
+                                Image(work.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: UIScreen.main.bounds.size.width, height: 200)
+                            }
                         }
                         Text("\(work.title) by \(artist.name)")
                             .padding(.horizontal)
